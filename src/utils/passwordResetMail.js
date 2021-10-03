@@ -4,7 +4,7 @@ const randomOtp = require("./randomOtp");
 require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "Gmail",
     auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASS,
