@@ -1,15 +1,18 @@
 const nodemailer = require("nodemailer");
+const smtpPool = require("nodemailer-smtp-pool");
 
 const randomOtp = require("./randomOtp");
 require("dotenv").config();
 
-const transporter = nodemailer.createTransport({
-    service: "Gmail",
+const transporter = nodemailer.createTransport(smtpPool({
+    service: 'gmail',
     auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASS,
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASS
     },
-});
+    maxConnections: 5,
+    maxMessages: 10
+  }));
 
 const passwordResetMail = (email) => {
     return new Promise((resolve, reject) => {
